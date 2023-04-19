@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 import uvicorn
+from db.models import Base
+from db.database import engine
 
 app = FastAPI()
-
+Base.metadata.create_all(engine)
 
 @app.get("/")
 def root():

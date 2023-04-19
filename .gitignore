@@ -167,3 +167,6 @@ postgres/
 #sqlalchemy
 migrations/
 migrations/*
+
+#database
+*.db
