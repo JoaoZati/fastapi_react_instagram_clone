@@ -6,6 +6,7 @@ from db.database import engine
 app = FastAPI()
 Base.metadata.create_all(engine)
 
+
 @app.get("/")
 def root():
     return {"message": "hello world"}
