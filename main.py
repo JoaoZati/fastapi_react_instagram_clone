@@ -2,8 +2,11 @@ from fastapi import FastAPI
 import uvicorn
 from db.models import Base
 from db.database import engine
+from routes import users
 
 app = FastAPI()
+app.include_router(users.router)
+
 Base.metadata.create_all(engine)
 
 
