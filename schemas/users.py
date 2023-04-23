@@ -11,5 +11,5 @@ class UserDisplay(BaseModel):
     username: str
     email: str
 
-    class Config():
+    class Config:
         orm_mode = True

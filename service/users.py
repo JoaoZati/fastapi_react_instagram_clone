@@ -6,10 +6,10 @@ from utils import hash_bycrpt
 
 def create_user_db(db: Session, request: UserBase):
     new_user = User(
-        username = request.username,
-        email =  request.email,
-        password = hash_bycrpt(request.password)
-    ) 
+        username=request.username,
+        email=request.email,
+        password=hash_bycrpt(request.password),
+    )
 
     db.add(new_user)
     db.commit()
