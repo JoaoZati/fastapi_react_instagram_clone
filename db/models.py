@@ -25,7 +25,9 @@ class Post(Base):
     __tablename__ = "post"
     id = Column(Integer, primary_key=True, index=True)
 
-    image = Column(Integer, )
+    image = Column(
+        Integer,
+    )
     image_url = Column(String)
     image_url_type = Column(String)
     caption = Column(String)
