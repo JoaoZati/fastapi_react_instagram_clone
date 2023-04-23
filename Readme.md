@@ -13,3 +13,6 @@
 
 # Routes
 - The functions with the app urls
+
+# Utils
+- general functions used by the app

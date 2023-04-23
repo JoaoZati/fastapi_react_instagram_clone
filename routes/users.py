@@ -5,7 +5,7 @@ from sqlalchemy.orm.session import Session
 # app
 from schemas.users import UserDisplay, UserBase
 from db.database import get_db
-from service.users import create_user
+from service.users import create_user_db
 
 router = APIRouter(
     prefix="/user",
@@ -14,5 +14,5 @@ router = APIRouter(
 
 
 @router.post('', response_model=UserDisplay)
-def create_user_db(request: UserBase, db: Session = Depends(get_db)):
-    return create_user(db, request)
+def create_user(request: UserBase, db: Session = Depends(get_db)):
+    return create_user_db(db, request)

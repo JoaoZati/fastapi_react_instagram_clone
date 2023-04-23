@@ -1,13 +1,15 @@
 from schemas.users import UserBase
 from sqlalchemy.orm.session import Session
 from db.models import User
+from utils import hash_bycrpt
 
-def create_user(db: Session, request: UserBase):
+
+def create_user_db(db: Session, request: UserBase):
     new_user = User(
         username = request.username,
         email =  request.email,
-        password = request.password # need to hash
-    )
+        password = hash_bycrpt(request.password)
+    ) 
 
     db.add(new_user)
     db.commit()
