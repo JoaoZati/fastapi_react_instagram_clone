@@ -4,7 +4,10 @@ from sqlalchemy import (
     Integer,
     String,
     Boolean,
+    DateTime,
+    ForeignKey,
 )
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
@@ -15,12 +18,17 @@ class User(Base):
     username = Column(String)
     password = Column(String)
     is_active = Column(Boolean, default=True)
+    items = relationship("Post", back_populates="user")
 
 
-# class DbUser(Base):
-#     __table__ = "user"
+class Post(Base):
+    __tablename__ = "post"
+    id = Column(Integer, primary_key=True, index=True)
 
-#     id = Column(Integer, primary_key=True, index=True)
-#     username = Column(String)
-#     email = Column(String)
-#     password = Column(String)
+    image = Column(Integer, )
+    image_url = Column(String)
+    image_url_type = Column(String)
+    caption = Column(String)
+    timestamp = Column(DateTime)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("User", back_populates="items")
