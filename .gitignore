@@ -170,3 +170,7 @@ migrations/*
 
 #database
 *.db
+
+#static files
+static/img/*
+!static/img/empty.txt

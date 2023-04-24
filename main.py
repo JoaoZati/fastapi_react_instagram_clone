@@ -1,5 +1,9 @@
+# tird party
 from fastapi import FastAPI
 import uvicorn
+from fastapi.staticfiles import StaticFiles
+
+# app
 from db.models import Base
 from db.database import engine
 from routes import (
@@ -12,6 +16,7 @@ app.include_router(users.router)
 app.include_router(posts.router)
 
 Base.metadata.create_all(engine)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
