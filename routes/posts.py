@@ -11,7 +11,7 @@ import shutil
 from schemas.users import UserAuth
 from schemas.posts import PostBase, PostDisplay
 from db.database import get_db
-from service.posts import create_post_db, get_all_db
+from service.posts import create_post_db, get_all_db, delete_post_db
 from auth.oauth2 import get_current_user
 
 
@@ -57,3 +57,8 @@ def upload_image(
         shutil.copyfileobj(image.file, buffer)
 
     return {"filename": path}
+
+
+@router.get("/delete/{id}")
+def delete(id: int, db: Session = Depends(get_db), current_user: UserAuth = Depends(get_current_user)):
+    return delete_post_db(id, db, current_user)
