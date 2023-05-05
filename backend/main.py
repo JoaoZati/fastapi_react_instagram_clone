@@ -1,10 +1,12 @@
 # tird party
+import os
 from fastapi import FastAPI
 import uvicorn
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 # app
+from config import BASE_DIR
 from db.models import Base
 from db.database import engine
 from auth import authentication
@@ -13,6 +15,8 @@ from routes import (
     posts,
     comments,
 )
+
+
 
 # routes
 app = FastAPI()
@@ -23,7 +27,7 @@ app.include_router(comments.router)
 
 # configure static files
 Base.metadata.create_all(engine)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 
 # configure cors
 origins = (
