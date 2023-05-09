@@ -1,6 +1,6 @@
 # tird party
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Response
 import uvicorn
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -41,6 +41,20 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*']
 )
+
+
+def add_cors_header(request: Request, response: Response) -> None:
+    response.headers["Access-Control-Allow-Origin"] = request.headers.get("Origin", "")
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+
+
+@app.middleware("http")
+async def add_custom_header(request: Request, call_next):
+    response = await call_next(request)
+    add_cors_header(request, response)
+    return response
 
 
 @app.get("/")
