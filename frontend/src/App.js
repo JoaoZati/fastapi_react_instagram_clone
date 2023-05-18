@@ -6,20 +6,19 @@ const BASE_URL = 'http://localhost:8000'
 
 function App() {
 
-    const [post, setPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         fetch(BASE_URL + "/post/all")
             .then(response => {
-                console.log("RESPONSE: ");
-                console.log(response);
+                // console.log("RESPONSE: ");
+                // console.log(response);
                 if (response.ok) {
                     return response.json()
                         .then(data => {
-                            console.log("setPosts: ");
                             setPosts(data)
-                            console.log("Data: ")
-                            console.log(data)
+                            // console.log("Data: ")
+                            // console.log(data)
                         })
                 }
                 throw response
@@ -30,8 +29,19 @@ function App() {
             });
     }, []);
 
+    var postCards = [];
+    for (let i=0; i<posts.length; i++) {
+
+        postCards.push(
+            <Post post = {posts[i]}/>
+        )
+    }
+
     return (
-        <Post />
+        <div className='app_posts'>
+            {postCards}
+        </div>
+        
     );
 }
 
